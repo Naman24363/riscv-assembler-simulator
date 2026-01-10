@@ -51,6 +51,8 @@ B_type = {
     "bne": {"opcode": "1100011", "funct3": "001"},
     "blt": {"opcode": "1100011", "funct3": "100"},
     "bge": {"opcode": "1100011", "funct3": "101"},
+    "bltu": {"opcode": "1100011", "funct3": "110"},
+    "bgeu": {"opcode": "1100011", "funct3": "111"},
 }
 
 S_Type = {

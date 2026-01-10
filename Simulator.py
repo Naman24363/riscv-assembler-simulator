@@ -225,6 +225,14 @@ def Type_B(I):
         if r[rs1] >= r[rs2]:
             x["PC"] += offset
             x["PC"]-=4
+    elif funct3 == "110":  # bltu (unsigned)
+        if (r[rs1] & 0xFFFFFFFF) < (r[rs2] & 0xFFFFFFFF):
+            x["PC"] += offset
+            x["PC"]-=4
+    elif funct3 == "111":  # bgeu (unsigned)
+        if (r[rs1] & 0xFFFFFFFF) >= (r[rs2] & 0xFFFFFFFF):
+            x["PC"] += offset
+            x["PC"]-=4
 
 def Type_S(I):
 
