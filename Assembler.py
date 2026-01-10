@@ -273,6 +273,29 @@ for line in lines:
         output = funct7 + shamt_bin + Registers[data.split()[2]] + funct3 + Registers[data.split()[1]] + opcode
         f_ans.append(output)
 
+        # U-TYPE INSTRUCTIONS (lui, auipc)
+    elif data.split()[0] == "lui" or data.split()[0] == "auipc":
+        data = data.replace(",", " ")
+        if data.split()[0] == "lui":
+            opcode = "0110111"
+        else:
+            opcode = "0010111"
+
+        imm_val = int(data.split()[2])
+        if imm_val >= 0:
+            imm = bin(imm_val)[2:].zfill(20)
+        else:
+            imm = bin(abs(imm_val))[2:].zfill(20)
+            imm = imm.replace("0", "X").replace("1", "0").replace("X", "1")
+            imm = funct1(imm, "1").zfill(20)
+
+        if data.split()[1] not in Registers:
+            f_ans.append("Error: Invalid register")
+            continue
+
+        output = imm[-20:] + Registers[data.split()[1]] + opcode
+        f_ans.append(output)
+
         # J-TYPE INSTRUCTION
     elif data.split()[0] == "jal":
         data = data.replace(",", " ")

@@ -265,6 +265,17 @@ def Type_J(I):
     r[rd] = x["PC"] + 4 
     x["PC"] =x["PC"]+funct8(imm+"0")
     x["PC"]-=4
+
+def Type_U(I):
+    opcode = I[-7:]
+    rd = int(I[-12:-7], 2)
+    imm = I[:-12]
+    imm_val = funct8(imm) << 12
+    
+    if opcode == "0110111":  # lui
+        r[rd] = imm_val
+    elif opcode == "0010111":  # auipc
+        r[rd] = x["PC"] + imm_val
  
 # f = open("input.txt", "r")
 f = open(sys.argv[1], "r") 
@@ -300,6 +311,8 @@ while x["PC"] < max_pc:
     elif opcode == "1101111":
         Type_J(I)
         # x["PC"]+=4
+    elif opcode == "0110111" or opcode == "0010111":  # lui, auipc
+        Type_U(I)
     elif I == "11100110000000000000000000000000":  # halt
         print("Program halted.")
     else:
