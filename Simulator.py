@@ -207,15 +207,24 @@ def Type_B(I):
     rs1 = int(I[-20:-15], 2)
     rs2 = int(I[-25:-20], 2)
     funct3 = I[-15:-12]
-    if funct3 == "000": 
+    offset = funct8(imm[-12:]+"0")
+    
+    if funct3 == "000":  # beq
         if r[rs1] == r[rs2]:
-            x["PC"] += funct8(imm[-12:]+"0")
+            x["PC"] += offset
             x["PC"]-=4
-    elif funct3 == "001": 
+    elif funct3 == "001":  # bne
         if r[rs1] != r[rs2]:
-            x["PC"] += funct8(imm[-12:]+"0")
+            x["PC"] += offset
             x["PC"]-=4
-            return
+    elif funct3 == "100":  # blt (signed)
+        if r[rs1] < r[rs2]:
+            x["PC"] += offset
+            x["PC"]-=4
+    elif funct3 == "101":  # bge (signed)
+        if r[rs1] >= r[rs2]:
+            x["PC"] += offset
+            x["PC"]-=4
 
 def Type_S(I):
 

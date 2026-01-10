@@ -49,6 +49,8 @@ Registers = {
 B_type = {
     "beq": {"opcode": "1100011", "funct3": "000"},
     "bne": {"opcode": "1100011", "funct3": "001"},
+    "blt": {"opcode": "1100011", "funct3": "100"},
+    "bge": {"opcode": "1100011", "funct3": "101"},
 }
 
 S_Type = {
