@@ -58,17 +58,23 @@ S_Type = {
 R_Type = {
         "add": {"opcode": "0110011", "funct3": "000", "funct7": "0000000"},
         "sub": {"opcode": "0110011", "funct3": "000", "funct7": "0100000"},
+        "sll": {"opcode": "0110011", "funct3": "001", "funct7": "0000000"},
         "slt": {"opcode": "0110011", "funct3": "010", "funct7": "0000000"},
         "srl": {"opcode": "0110011", "funct3": "101", "funct7": "0000000"},
+        "sra": {"opcode": "0110011", "funct3": "101", "funct7": "0100000"},
         "or": {"opcode": "0110011", "funct3": "110", "funct7": "0000000"},
         "and": {"opcode": "0110011", "funct3": "111", "funct7": "0000000"}
-
 }
 
 I_Type = {
         "lw": {"opcode": "0000011", "funct3": "010"},
         "addi": {"opcode": "0010011", "funct3": "000"},
         "jalr": {"opcode": "1100111", "funct3": "000"}
+}
+
+# Shift immediate instructions (special I-type with shamt)
+Shift_Imm_Type = {
+        "slli": {"opcode": "0010011", "funct3": "001", "funct7": "0000000"}
 }
 
 def funct1(a: str, b: str) -> str: #2's complement
@@ -235,6 +241,23 @@ for line in lines:
             continue
 
         output = bina[0:7] + Registers[data.split()[1]] + Registers[substring] + funct3 + bina[7:] + opcode
+        f_ans.append(output)
+
+        # Shift Immediate Instructions (slli)
+    elif data.split()[0] in Shift_Imm_Type:
+        opcode = Shift_Imm_Type[data.split()[0]]["opcode"]
+        funct3 = Shift_Imm_Type[data.split()[0]]["funct3"]
+        funct7 = Shift_Imm_Type[data.split()[0]]["funct7"]
+        data = data.replace(",", " ")
+
+        shamt = int(data.split()[3])
+        shamt_bin = bin(shamt)[2:].zfill(5)
+
+        if data.split()[2] not in Registers or data.split()[1] not in Registers:
+            f_ans.append("Error: Invalid register")
+            continue
+
+        output = funct7 + shamt_bin + Registers[data.split()[2]] + funct3 + Registers[data.split()[1]] + opcode
         f_ans.append(output)
 
         # J-TYPE INSTRUCTION

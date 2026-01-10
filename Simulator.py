@@ -114,25 +114,33 @@ def Type_R(I):
     funct3 = I[17:20]
     rd = int(I[20:25], 2)
     if funct7 == "0000000": 
-        if funct3 == "000":
+        if funct3 == "000":  # add
             r[rd] = r[rs1] + r[rs2]
-        elif funct3 == "010":  
+        elif funct3 == "001":  # sll
+            sh = r[rs2] & 0b11111
+            r[rd] = (r[rs1] << sh) & 0xFFFFFFFF
+        elif funct3 == "010":  # slt
             r[rd] = 1 if r[rs1] < r[rs2] else 0
-        elif funct3 == "101": #slt
-            sh= r[rs2] & 0b11111
-            r[rd] = r[rs1] >>sh
-        elif funct3 == "110": 
+        elif funct3 == "101":  # srl
+            sh = r[rs2] & 0b11111
+            r[rd] = (r[rs1] & 0xFFFFFFFF) >> sh
+        elif funct3 == "110":  # or
             r[rd] = r[rs1] | r[rs2]
-        elif funct3 == "111": 
+        elif funct3 == "111":  # and
             r[rd] = r[rs1] & r[rs2]
 
-
     elif funct7 == "0100000":
-        if funct3 == "000":
+        if funct3 == "000":  # sub
             if (rs1 == 0):
               r[rd] = 0 - r[rs2]
             else:
               r[rd] = r[rs1] - r[rs2]
+        elif funct3 == "101":  # sra (shift right arithmetic)
+            sh = r[rs2] & 0b11111
+            if r[rs1] < 0:
+                r[rd] = r[rs1] >> sh
+            else:
+                r[rd] = (r[rs1] & 0xFFFFFFFF) >> sh
         else:
           print("Invalid Instruction")
 
@@ -153,12 +161,17 @@ def Type_I(I):
     rd = int(I[-12:-7], 2)
     imm = I[:-20]
     funct3 = I[-15:-12]
-    if opcode == "0010011": 
-        if funct3 == "000":  
+    funct7 = I[:7]
+    
+    if opcode == "0010011":  # Arithmetic immediate
+        if funct3 == "000":  # addi
             r[rd] = r[rs1] + funct8(imm)
-    elif opcode == "1100111": 
+        elif funct3 == "001":  # slli
+            shamt = int(imm[-5:], 2)
+            r[rd] = (r[rs1] << shamt) & 0xFFFFFFFF
+    elif opcode == "1100111":  # jalr
         if funct3 == "000":
-            immd = funct8(imm) #imm_dec
+            immd = funct8(imm)
             target = (r[rs1] + immd) & ~1 
             r[rd] = x["PC"] + 4  
             x["PC"] = target-4
