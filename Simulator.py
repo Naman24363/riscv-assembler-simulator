@@ -171,6 +171,15 @@ def Type_I(I):
         elif funct3 == "001":  # slli
             shamt = int(imm[-5:], 2)
             r[rd] = (r[rs1] << shamt) & 0xFFFFFFFF
+        elif funct3 == "101":  # srli or srai
+            shamt = int(imm[-5:], 2)
+            if funct7 == "0000000":  # srli
+                r[rd] = (r[rs1] & 0xFFFFFFFF) >> shamt
+            elif funct7 == "0100000":  # srai
+                if r[rs1] < 0:
+                    r[rd] = r[rs1] >> shamt
+                else:
+                    r[rd] = (r[rs1] & 0xFFFFFFFF) >> shamt
     elif opcode == "1100111":  # jalr
         if funct3 == "000":
             immd = funct8(imm)

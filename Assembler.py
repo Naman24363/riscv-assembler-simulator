@@ -75,7 +75,9 @@ I_Type = {
 
 # Shift immediate instructions (special I-type with shamt)
 Shift_Imm_Type = {
-        "slli": {"opcode": "0010011", "funct3": "001", "funct7": "0000000"}
+        "slli": {"opcode": "0010011", "funct3": "001", "funct7": "0000000"},
+        "srli": {"opcode": "0010011", "funct3": "101", "funct7": "0000000"},
+        "srai": {"opcode": "0010011", "funct3": "101", "funct7": "0100000"}
 }
 
 def funct1(a: str, b: str) -> str: #2's complement
