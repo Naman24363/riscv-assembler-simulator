@@ -39,19 +39,23 @@ CO-Assignment/
 ## Usage
 
 ### Prerequisites
+
 - Python 3.x
 
 ### Assemble a Program
+
 ```bash
 python Assembler.py <input.asm> <output.bin>
 ```
 
 ### Run the Simulator
+
 ```bash
 python Simulator.py <input.bin> <output.txt>
 ```
 
 ### Run All Tests
+
 ```bash
 python run_tests.py
 ```
@@ -60,43 +64,48 @@ python run_tests.py
 
 ## Supported Instructions (22 Total)
 
-| Type | Instructions | Format |
-|------|-------------|--------|
-| R-Type | `add`, `sub`, `and`, `or`, `xor`, `slt`, `sltu`, `sll`, `srl`, `sra` | `op rd, rs1, rs2` |
-| I-Type (Arithmetic) | `addi`, `andi`, `ori`, `xori`, `slti`, `sltiu` | `op rd, rs1, imm` |
-| I-Type (Shift) | `slli`, `srli`, `srai` | `op rd, rs1, shamt` |
-| I-Type (Load) | `lw` | `op rd, offset(rs1)` |
-| I-Type (Jump) | `jalr` | `jalr rd, rs1, imm` |
-| S-Type | `sw` | `op rs2, offset(rs1)` |
-| B-Type | `beq`, `bne`, `blt`, `bge`, `bltu`, `bgeu` | `op rs1, rs2, label/offset` |
-| U-Type | `lui`, `auipc` | `op rd, imm` |
-| J-Type | `jal` | `jal rd, label/offset` |
+| Type                | Instructions                                                         | Format                      |
+| ------------------- | -------------------------------------------------------------------- | --------------------------- |
+| R-Type              | `add`, `sub`, `and`, `or`, `xor`, `slt`, `sltu`, `sll`, `srl`, `sra` | `op rd, rs1, rs2`           |
+| I-Type (Arithmetic) | `addi`, `andi`, `ori`, `xori`, `slti`, `sltiu`                       | `op rd, rs1, imm`           |
+| I-Type (Shift)      | `slli`, `srli`, `srai`                                               | `op rd, rs1, shamt`         |
+| I-Type (Load)       | `lw`                                                                 | `op rd, offset(rs1)`        |
+| I-Type (Jump)       | `jalr`                                                               | `jalr rd, rs1, imm`         |
+| S-Type              | `sw`                                                                 | `op rs2, offset(rs1)`       |
+| B-Type              | `beq`, `bne`, `blt`, `bge`, `bltu`, `bgeu`                           | `op rs1, rs2, label/offset` |
+| U-Type              | `lui`, `auipc`                                                       | `op rd, imm`                |
+| J-Type              | `jal`                                                                | `jal rd, label/offset`      |
 
 ---
 
 ## Instruction Encoding
 
 ### R-Type (Register)
+
 ```
 | funct7 (7) | rs2 (5) | rs1 (5) | funct3 (3) | rd (5) | opcode (7) |
 ```
 
 ### I-Type (Immediate)
+
 ```
 | imm[11:0] (12) | rs1 (5) | funct3 (3) | rd (5) | opcode (7) |
 ```
 
 ### S-Type (Store)
+
 ```
 | imm[11:5] (7) | rs2 (5) | rs1 (5) | funct3 (3) | imm[4:0] (5) | opcode (7) |
 ```
 
 ### B-Type (Branch)
+
 ```
 | imm[12|10:5] (7) | rs2 (5) | rs1 (5) | funct3 (3) | imm[4:1|11] (5) | opcode (7) |
 ```
 
 ### J-Type (Jump)
+
 ```
 | imm[20|10:1|11|19:12] (20) | rd (5) | opcode (7) |
 ```
@@ -105,37 +114,39 @@ python run_tests.py
 
 ## Register Map
 
-| Register | ABI Name | Description |
-|----------|----------|-------------|
-| x0 | zero | Hardwired zero |
-| x1 | ra | Return address |
-| x2 | sp | Stack pointer |
-| x5-x7 | t0-t2 | Temporaries |
-| x8 | s0/fp | Saved register / Frame pointer |
-| x10-x17 | a0-a7 | Function arguments |
-| x18-x27 | s2-s11 | Saved registers |
-| x28-x31 | t3-t6 | Temporaries |
+| Register | ABI Name | Description                    |
+| -------- | -------- | ------------------------------ |
+| x0       | zero     | Hardwired zero                 |
+| x1       | ra       | Return address                 |
+| x2       | sp       | Stack pointer                  |
+| x5-x7    | t0-t2    | Temporaries                    |
+| x8       | s0/fp    | Saved register / Frame pointer |
+| x10-x17  | a0-a7    | Function arguments             |
+| x18-x27  | s2-s11   | Saved registers                |
+| x28-x31  | t3-t6    | Temporaries                    |
 
 ---
 
 ## Test Cases
 
-| Test | Description | Instructions Tested |
-|------|-------------|---------------------|
-| 1 | Basic Arithmetic | `addi`, `add`, `sub`, `and`, `or` |
-| 2 | Memory Operations | `sw`, `lw` |
-| 3 | Branch with Labels | `beq` |
-| 4 | Jump Operations | `jal` |
-| 5 | Loop Construct | `bne` |
-| 6 | Negative Numbers | Two's complement |
-| 7 | Compare & Shift | `slt`, `srl` |
+| Test | Description        | Instructions Tested               |
+| ---- | ------------------ | --------------------------------- |
+| 1    | Basic Arithmetic   | `addi`, `add`, `sub`, `and`, `or` |
+| 2    | Memory Operations  | `sw`, `lw`                        |
+| 3    | Branch with Labels | `beq`                             |
+| 4    | Jump Operations    | `jal`                             |
+| 5    | Loop Construct     | `bne`                             |
+| 6    | Negative Numbers   | Two's complement                  |
+| 7    | Compare & Shift    | `slt`, `srl`                      |
 
 ---
 
 ## Output Format
 
 ### Assembler Output
+
 Each line contains a 32-bit binary instruction:
+
 ```
 00000000101000000000001010010011
 00000000010100000000001100010011
@@ -143,6 +154,7 @@ Each line contains a 32-bit binary instruction:
 ```
 
 ### Simulator Output
+
 Each line shows PC and all 32 registers in binary format, followed by memory dump.
 
 ---
@@ -150,6 +162,7 @@ Each line shows PC and all 32 registers in binary format, followed by memory dum
 ## Example
 
 ### Input Assembly
+
 ```asm
 addi t0, zero, 10
 addi t1, zero, 5
@@ -158,20 +171,21 @@ beq zero, zero, 0
 ```
 
 ### Result
+
 - `t0` = 10
-- `t1` = 5  
+- `t1` = 5
 - `t2` = 15
 
 ---
 
 ## Team
 
-| Name | Roll Number |
-|------|-------------|
-| Anoushka Malik | 2024086 |
-| Cho Hnin Lwin | 2024165 |
-| Naman Chug | 2024363 |
-| Parth Kumar | 2024404 |
+| Name           | Roll Number |
+| -------------- | ----------- |
+| Anoushka Malik | 2024086     |
+| Cho Hnin Lwin  | 2024165     |
+| Naman Chug     | 2024363     |
+| Parth Kumar    | 2024404     |
 
 ---
 
