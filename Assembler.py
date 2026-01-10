@@ -70,6 +70,9 @@ R_Type = {
 I_Type = {
         "lw": {"opcode": "0000011", "funct3": "010"},
         "addi": {"opcode": "0010011", "funct3": "000"},
+        "xori": {"opcode": "0010011", "funct3": "100"},
+        "ori": {"opcode": "0010011", "funct3": "110"},
+        "andi": {"opcode": "0010011", "funct3": "111"},
         "jalr": {"opcode": "1100111", "funct3": "000"}
 }
 

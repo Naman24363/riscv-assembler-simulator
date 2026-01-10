@@ -168,6 +168,12 @@ def Type_I(I):
     if opcode == "0010011":  # Arithmetic immediate
         if funct3 == "000":  # addi
             r[rd] = r[rs1] + funct8(imm)
+        elif funct3 == "100":  # xori
+            r[rd] = r[rs1] ^ funct8(imm)
+        elif funct3 == "110":  # ori
+            r[rd] = r[rs1] | funct8(imm)
+        elif funct3 == "111":  # andi
+            r[rd] = r[rs1] & funct8(imm)
         elif funct3 == "001":  # slli
             shamt = int(imm[-5:], 2)
             r[rd] = (r[rs1] << shamt) & 0xFFFFFFFF
