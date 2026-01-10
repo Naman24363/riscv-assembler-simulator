@@ -11,26 +11,36 @@ A complete RISC-V assembler and simulator built in Python. This project assemble
 - Supports labels for branches and jumps
 - Simulates load/store with memory state tracking
 - Handles negative numbers with two's complement
-- Includes automated test suite with 7 test cases
+- Supports comments in assembly (using `#`)
+- Includes comprehensive automated test suite with 15 test cases
 
 ---
 
 ## Project Structure
 
 ```
-CO-Assignment/
+riscv-assembler-simulator/
 ├── Assembler.py          # RISC-V Assembler
 ├── Simulator.py          # RISC-V Simulator
 ├── run_tests.py          # Automated test runner
 ├── README.md
-├── tests/                # Assembly test files
+├── tests/                # Assembly test files (15 tests)
 │   ├── test1_arithmetic.asm
 │   ├── test2_memory.asm
 │   ├── test3_branch.asm
 │   ├── test4_jump.asm
 │   ├── test5_loop.asm
 │   ├── test6_negative.asm
-│   └── test7_compare_shift.asm
+│   ├── test7_compare_shift.asm
+│   ├── test8_logical_ops.asm
+│   ├── test9_shift_ops.asm
+│   ├── test10_compare_ops.asm
+│   ├── test11_branch_all.asm
+│   ├── test12_lui_auipc.asm
+│   ├── test13_jalr.asm
+│   ├── test14_complex_expr.asm
+│   ├── test15_fibonacci.asm
+│   └── run_tests.py
 └── output/               # Generated binaries & results
 ```
 
@@ -127,17 +137,25 @@ python run_tests.py
 
 ---
 
-## Test Cases
+## Test Cases (15 Tests)
 
-| Test | Description        | Instructions Tested               |
-| ---- | ------------------ | --------------------------------- |
-| 1    | Basic Arithmetic   | `addi`, `add`, `sub`, `and`, `or` |
-| 2    | Memory Operations  | `sw`, `lw`                        |
-| 3    | Branch with Labels | `beq`                             |
-| 4    | Jump Operations    | `jal`                             |
-| 5    | Loop Construct     | `bne`                             |
-| 6    | Negative Numbers   | Two's complement                  |
-| 7    | Compare & Shift    | `slt`, `srl`                      |
+| Test | Description            | Instructions Tested                              |
+| ---- | ---------------------- | ------------------------------------------------ |
+| 1    | Basic Arithmetic       | `addi`, `add`, `sub`, `and`, `or`                |
+| 2    | Memory Operations      | `sw`, `lw`                                       |
+| 3    | Branch with Labels     | `beq`                                            |
+| 4    | Jump Operations        | `jal`                                            |
+| 5    | Loop Construct         | `bne`                                            |
+| 6    | Negative Numbers       | Two's complement                                 |
+| 7    | Compare & Shift        | `slt`, `srl`                                     |
+| 8    | Logical Operations     | `xor`, `ori`, `andi`, `xori`                     |
+| 9    | Shift Operations       | `sll`, `srl`, `sra`, `slli`, `srli`, `srai`      |
+| 10   | Comparison Operations  | `slt`, `sltu`, `slti`, `sltiu`                   |
+| 11   | All Branch Types       | `beq`, `bne`, `blt`, `bge`                       |
+| 12   | LUI and AUIPC          | `lui`, `auipc`                                   |
+| 13   | JALR Instruction       | `jalr`                                           |
+| 14   | Complex Expression     | Computing `(a+b)*2-c` using multiple ops         |
+| 15   | Fibonacci Sequence     | Loop computing first 7 Fibonacci numbers         |
 
 ---
 
