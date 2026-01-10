@@ -60,6 +60,7 @@ R_Type = {
         "sub": {"opcode": "0110011", "funct3": "000", "funct7": "0100000"},
         "sll": {"opcode": "0110011", "funct3": "001", "funct7": "0000000"},
         "slt": {"opcode": "0110011", "funct3": "010", "funct7": "0000000"},
+        "xor": {"opcode": "0110011", "funct3": "100", "funct7": "0000000"},
         "srl": {"opcode": "0110011", "funct3": "101", "funct7": "0000000"},
         "sra": {"opcode": "0110011", "funct3": "101", "funct7": "0100000"},
         "or": {"opcode": "0110011", "funct3": "110", "funct7": "0000000"},

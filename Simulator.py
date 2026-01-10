@@ -121,6 +121,8 @@ def Type_R(I):
             r[rd] = (r[rs1] << sh) & 0xFFFFFFFF
         elif funct3 == "010":  # slt
             r[rd] = 1 if r[rs1] < r[rs2] else 0
+        elif funct3 == "100":  # xor
+            r[rd] = r[rs1] ^ r[rs2]
         elif funct3 == "101":  # srl
             sh = r[rs2] & 0b11111
             r[rd] = (r[rs1] & 0xFFFFFFFF) >> sh
