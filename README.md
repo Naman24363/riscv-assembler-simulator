@@ -139,23 +139,23 @@ python run_tests.py
 
 ## Test Cases (15 Tests)
 
-| Test | Description            | Instructions Tested                              |
-| ---- | ---------------------- | ------------------------------------------------ |
-| 1    | Basic Arithmetic       | `addi`, `add`, `sub`, `and`, `or`                |
-| 2    | Memory Operations      | `sw`, `lw`                                       |
-| 3    | Branch with Labels     | `beq`                                            |
-| 4    | Jump Operations        | `jal`                                            |
-| 5    | Loop Construct         | `bne`                                            |
-| 6    | Negative Numbers       | Two's complement                                 |
-| 7    | Compare & Shift        | `slt`, `srl`                                     |
-| 8    | Logical Operations     | `xor`, `ori`, `andi`, `xori`                     |
-| 9    | Shift Operations       | `sll`, `srl`, `sra`, `slli`, `srli`, `srai`      |
-| 10   | Comparison Operations  | `slt`, `sltu`, `slti`, `sltiu`                   |
-| 11   | All Branch Types       | `beq`, `bne`, `blt`, `bge`                       |
-| 12   | LUI and AUIPC          | `lui`, `auipc`                                   |
-| 13   | JALR Instruction       | `jalr`                                           |
-| 14   | Complex Expression     | Computing `(a+b)*2-c` using multiple ops         |
-| 15   | Fibonacci Sequence     | Loop computing first 7 Fibonacci numbers         |
+| Test | Description           | Instructions Tested                         |
+| ---- | --------------------- | ------------------------------------------- |
+| 1    | Basic Arithmetic      | `addi`, `add`, `sub`, `and`, `or`           |
+| 2    | Memory Operations     | `sw`, `lw`                                  |
+| 3    | Branch with Labels    | `beq`                                       |
+| 4    | Jump Operations       | `jal`                                       |
+| 5    | Loop Construct        | `bne`                                       |
+| 6    | Negative Numbers      | Two's complement                            |
+| 7    | Compare & Shift       | `slt`, `srl`                                |
+| 8    | Logical Operations    | `xor`, `ori`, `andi`, `xori`                |
+| 9    | Shift Operations      | `sll`, `srl`, `sra`, `slli`, `srli`, `srai` |
+| 10   | Comparison Operations | `slt`, `sltu`, `slti`, `sltiu`              |
+| 11   | All Branch Types      | `beq`, `bne`, `blt`, `bge`                  |
+| 12   | LUI and AUIPC         | `lui`, `auipc`                              |
+| 13   | JALR Instruction      | `jalr`                                      |
+| 14   | Complex Expression    | Computing `(a+b)*2-c` using multiple ops    |
+| 15   | Fibonacci Sequence    | Loop computing first 7 Fibonacci numbers    |
 
 ---
 
