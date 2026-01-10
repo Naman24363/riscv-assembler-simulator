@@ -168,6 +168,10 @@ def Type_I(I):
     if opcode == "0010011":  # Arithmetic immediate
         if funct3 == "000":  # addi
             r[rd] = r[rs1] + funct8(imm)
+        elif funct3 == "010":  # slti
+            r[rd] = 1 if r[rs1] < funct8(imm) else 0
+        elif funct3 == "011":  # sltiu
+            r[rd] = 1 if (r[rs1] & 0xFFFFFFFF) < (funct8(imm) & 0xFFFFFFFF) else 0
         elif funct3 == "100":  # xori
             r[rd] = r[rs1] ^ funct8(imm)
         elif funct3 == "110":  # ori
