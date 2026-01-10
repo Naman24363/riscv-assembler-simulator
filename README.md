@@ -58,14 +58,18 @@ python run_tests.py
 
 ---
 
-## Supported Instructions
+## Supported Instructions (22 Total)
 
 | Type | Instructions | Format |
 |------|-------------|--------|
-| R-Type | `add`, `sub`, `and`, `or`, `slt`, `srl` | `op rd, rs1, rs2` |
-| I-Type | `addi`, `lw`, `jalr` | `op rd, rs1, imm` |
-| S-Type | `sw` | `sw rs2, offset(rs1)` |
-| B-Type | `beq`, `bne` | `op rs1, rs2, label/offset` |
+| R-Type | `add`, `sub`, `and`, `or`, `xor`, `slt`, `sltu`, `sll`, `srl`, `sra` | `op rd, rs1, rs2` |
+| I-Type (Arithmetic) | `addi`, `andi`, `ori`, `xori`, `slti`, `sltiu` | `op rd, rs1, imm` |
+| I-Type (Shift) | `slli`, `srli`, `srai` | `op rd, rs1, shamt` |
+| I-Type (Load) | `lw` | `op rd, offset(rs1)` |
+| I-Type (Jump) | `jalr` | `jalr rd, rs1, imm` |
+| S-Type | `sw` | `op rs2, offset(rs1)` |
+| B-Type | `beq`, `bne`, `blt`, `bge`, `bltu`, `bgeu` | `op rs1, rs2, label/offset` |
+| U-Type | `lui`, `auipc` | `op rd, imm` |
 | J-Type | `jal` | `jal rd, label/offset` |
 
 ---
