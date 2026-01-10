@@ -107,23 +107,36 @@ def funct1(a: str, b: str) -> str: #2's complement
     return ''.join(reversed(s))
 
 
-def funct2(lines): #parse_mips
+def funct2(lines): #parse_mips - finds labels and their instruction index
     labels = {}
-    for idx, line in enumerate(lines, 1):
-        if ':' in line:
-            label = line.split(':')[0].strip()
-            labels[label] = idx
+    instr_idx = 0
+    for line in lines:
+        # Remove comments before processing
+        clean_line = line.split('#')[0].strip()
+        if not clean_line:
+            continue
+        if ':' in clean_line:
+            label = clean_line.split(':')[0].strip()
+            labels[label] = instr_idx + 1  # 1-indexed
+            # Check if there's an instruction after the label
+            after_label = clean_line.split(':', 1)[1].strip()
+            if after_label:
+                instr_idx += 1
+        else:
+            instr_idx += 1
     return labels
 
 
 def funct3(lines): #remove labels
     l = []
     for line in lines:
-        if ':' in line:
-            label, statement = line.split(':', 1)
+        # Remove comments first
+        clean_line = line.split('#')[0].strip()
+        if ':' in clean_line:
+            label, statement = clean_line.split(':', 1)
             l.append(statement.strip())
         else:
-            l.append(line.strip())
+            l.append(clean_line)
     return l
 
 
@@ -139,10 +152,20 @@ for line in lines:
     data = line.strip()
     if not data:
         continue
+    
+    # Remove comments (everything after #)
+    if '#' in data:
+        data = data.split('#')[0].strip()
+    if not data:
+        continue
 
     for i, char in enumerate(data):
         if char == ':':
-            data = data[i + 1:]
+            data = data[i + 1:].strip()
+    
+    # Skip if line was only a label with no instruction
+    if not data:
+        continue
 
     z += 1
     if data.split()[0] in B_type:

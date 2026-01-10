@@ -90,6 +90,114 @@ tests = [
         },
         "description": "Tests slt and srl instructions"
     },
+    {
+        "name": "Test 8: Logical Operations (XOR, ORI, ANDI, XORI)",
+        "asm_file": "test8_logical_ops.asm",
+        "expected_registers": {
+            5: 10,   # t0 = 10 (1010)
+            6: 12,   # t1 = 12 (1100)
+            7: 6,    # t2 = 10 ^ 12 = 6 (0110)
+            28: 255, # t3 = ori(0, 255)
+            29: 15,  # t4 = 255 & 15
+            30: 5,   # t5 = 10 ^ 15 = 5
+        },
+        "description": "Tests xor, ori, andi, xori instructions"
+    },
+    {
+        "name": "Test 9: Shift Operations (SLL, SRL, SRA, SLLI, SRLI, SRAI)",
+        "asm_file": "test9_shift_ops.asm",
+        "expected_registers": {
+            5: 8,    # t0 = 8
+            6: 2,    # t1 = 2
+            7: 32,   # t2 = 8 << 2 = 32
+            28: 2,   # t3 = 8 >> 2 = 2
+            29: 64,  # t4 = 8 << 3 = 64
+            30: 4,   # t5 = 8 >> 1 = 4
+            8: -16,  # s0 = -16
+            9: 2,    # s1 = 2
+            18: -4,  # s2 = -16 >> 2 = -4 (arithmetic)
+            19: -8,  # s3 = -16 >> 1 = -8 (arithmetic)
+        },
+        "description": "Tests sll, srl, sra, slli, srli, srai instructions"
+    },
+    {
+        "name": "Test 10: Comparison Operations (SLT, SLTU, SLTI, SLTIU)",
+        "asm_file": "test10_compare_ops.asm",
+        "expected_registers": {
+            5: 10,   # t0 = 10
+            6: 20,   # t1 = 20
+            20: -5,  # s4 = -5
+            7: 1,    # t2 = (10 < 20) = 1
+            28: 0,   # t3 = (20 < 10) = 0
+            29: 1,   # t4 = (-5 < 10) signed = 1
+            30: 0,   # t5 = unsigned compare (large > 10) = 0
+            8: 1,    # s0 = (10 < 15) = 1
+            9: 0,    # s1 = (10 < 5) = 0
+            18: 1,   # s2 = (10 < 15) unsigned = 1
+        },
+        "description": "Tests slt, sltu, slti, sltiu instructions"
+    },
+    {
+        "name": "Test 11: All Branch Types (BEQ, BNE, BLT, BGE)",
+        "asm_file": "test11_branch_all.asm",
+        "expected_registers": {
+            5: 10,   # t0 = 10
+            6: 20,   # t1 = 20
+            7: 10,   # t2 = 10
+            8: 4,    # s0 = 4 (all 4 branches taken)
+        },
+        "description": "Tests beq, bne, blt, bge branch instructions"
+    },
+    {
+        "name": "Test 12: LUI and AUIPC Instructions",
+        "asm_file": "test12_lui_auipc.asm",
+        "expected_registers": {
+            5: 4096,   # t0 = 1 << 12
+            6: 8192,   # t1 = 2 << 12
+            7: 65536,  # t2 = 16 << 12
+            28: 4196,  # t3 = 4096 + 100
+            29: 16,    # t4 = PC at auipc instruction
+        },
+        "description": "Tests lui and auipc U-type instructions"
+    },
+    {
+        "name": "Test 13: JALR Instruction",
+        "asm_file": "test13_jalr.asm",
+        "expected_registers": {
+            5: 20,   # t0 = 20 (target address)
+            1: 8,    # ra = return address (PC+4 after jalr)
+            6: 50,   # t1 = 50 (executed after jump)
+            7: 100,  # t2 = 100
+        },
+        "description": "Tests jalr (jump and link register) instruction"
+    },
+    {
+        "name": "Test 14: Complex Arithmetic Expression",
+        "asm_file": "test14_complex_expr.asm",
+        "expected_registers": {
+            5: 15,   # t0 = a = 15
+            6: 10,   # t1 = b = 10
+            7: 5,    # t2 = c = 5
+            28: 25,  # t3 = a + b = 25
+            29: 50,  # t4 = (a+b) * 2 = 50
+            30: 45,  # t5 = (a+b)*2 - c = 45
+        },
+        "description": "Tests computing (a+b)*2-c using add, slli, sub"
+    },
+    {
+        "name": "Test 15: Fibonacci Sequence",
+        "asm_file": "test15_fibonacci.asm",
+        "expected_registers": {
+            5: 0,    # t0 = fib(0) = 0
+            6: 1,    # t1 = fib(1) = 1
+            7: 1,    # t2 = fib(2) = 1
+            28: 2,   # t3 = fib(3) = 2
+            29: 3,   # t4 = fib(4) = 3
+            30: 5,   # t5 = fib(5) = 5
+            8: 8,    # s0 = fib(6) = 8
+        },
+        "description": "Computes first 7 Fibonacci numbers"
+    },
 ]
 
 def parse_register_value(binary_str):
